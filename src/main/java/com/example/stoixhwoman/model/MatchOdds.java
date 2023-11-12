@@ -12,18 +12,6 @@ public class MatchOdds {
     private char specifier;
     private double odd;
 
-    @ManyToOne
-    @JoinColumn(name = "match_id")
-    private Match match;
-
-    public Match getMatch() {
-        return match;
-    }
-
-    public void setMatch(Match match) {
-        this.match = match;
-    }
-
     public Long getId() {
         return id;
     }

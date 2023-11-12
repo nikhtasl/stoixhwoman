@@ -1,49 +1,18 @@
-package com.example.stoixhwoman.model;
+package com.example.stoixhwoman.dto;
 
 import com.example.stoixhwoman.enums.Sport;
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "match")
-public class Match {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
-    private String description;
-
-    @Column(name = "match_date", nullable = false)
+public class MatchDTO {
     private LocalDate matchDate;
-    @Column(name = "match_time", nullable = false)
     private LocalDateTime matchTime;
     private String team_a;
     private String team_b;
     private Sport sport;
-    @OneToMany(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    @JoinColumn(name = "match_id")
-    private List<MatchOdds> matchOdds;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    private List<MatchOddsDTO> matchOddsDTOs;
 
     public LocalDate getMatchDate() {
         return matchDate;
@@ -85,11 +54,11 @@ public class Match {
         this.sport = sport;
     }
 
-    public List<MatchOdds> getMatchOdds() {
-        return matchOdds;
+    public List<MatchOddsDTO> getMatchOddsDTOs() {
+        return matchOddsDTOs;
     }
 
-    public void setMatchOdds(List<MatchOdds> matchOdds) {
-        this.matchOdds = matchOdds;
+    public void setMatchOddsDTOs(List<MatchOddsDTO> matchOddsDTOs) {
+        this.matchOddsDTOs = matchOddsDTOs;
     }
 }
