@@ -3,12 +3,12 @@ package com.example.stoixhwoman.dto;
 import com.example.stoixhwoman.enums.Sport;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class MatchDTO {
     private LocalDate matchDate;
-    private LocalDateTime matchTime;
+    private LocalTime matchTime;
     private String team_a;
     private String team_b;
     private Sport sport;
@@ -22,11 +22,11 @@ public class MatchDTO {
         this.matchDate = matchDate;
     }
 
-    public LocalDateTime getMatchTime() {
+    public LocalTime getMatchTime() {
         return matchTime;
     }
 
-    public void setMatchTime(LocalDateTime matchTime) {
+    public void setMatchTime(LocalTime matchTime) {
         this.matchTime = matchTime;
     }
 

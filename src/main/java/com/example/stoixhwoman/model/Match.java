@@ -4,7 +4,7 @@ import com.example.stoixhwoman.enums.Sport;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -19,7 +19,7 @@ public class Match {
     @Column(name = "match_date", nullable = false)
     private LocalDate matchDate;
     @Column(name = "match_time", nullable = false)
-    private LocalDateTime matchTime;
+    private LocalTime matchTime;
     private String team_a;
     private String team_b;
     private Sport sport;
@@ -53,11 +53,11 @@ public class Match {
         this.matchDate = matchDate;
     }
 
-    public LocalDateTime getMatchTime() {
+    public LocalTime getMatchTime() {
         return matchTime;
     }
 
-    public void setMatchTime(LocalDateTime matchTime) {
+    public void setMatchTime(LocalTime matchTime) {
         this.matchTime = matchTime;
     }
 
