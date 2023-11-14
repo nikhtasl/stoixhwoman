@@ -1,22 +1,23 @@
 package com.example.stoixhwoman.service;
 
 import com.example.stoixhwoman.dto.MatchDTO;
-import com.example.stoixhwoman.dto.MatchOddsDTO;
 import com.example.stoixhwoman.model.Match;
-import com.example.stoixhwoman.model.MatchOdds;
 import com.example.stoixhwoman.repository.MatchRepository;
+import com.example.stoixhwoman.utilities.DTOUtilities;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class MatchService {
 
+
+    private final DTOUtilities dtoUtilities;
     private final MatchRepository matchRepository;
 
-    public MatchService(MatchRepository matchRepository) {
+    public MatchService(DTOUtilities dtoUtilities, MatchRepository matchRepository) {
+        this.dtoUtilities = dtoUtilities;
         this.matchRepository = matchRepository;
     }
 
@@ -25,7 +26,7 @@ public class MatchService {
     }
 
     public Match addMatch(MatchDTO matchDTO) {
-        Match match = transformMatchDTOToMatch(matchDTO);
+        Match match = dtoUtilities.transformMatchDTOToMatch(matchDTO);
         return matchRepository.save(match);
     }
 
@@ -34,32 +35,13 @@ public class MatchService {
     }
 
     public Match updateMatch(Long id, MatchDTO matchDTO) {
-        Match match = transformMatchDTOToMatch(matchDTO);
+        Match match = dtoUtilities.transformMatchDTOToMatch(matchDTO);
         match.setId(id);
         return matchRepository.save(match);
     }
 
-    Match transformMatchDTOToMatch(MatchDTO matchDTO) {
-        Match match = new Match();
-        match.setDescription(matchDTO.getTeam_a() + "-" + matchDTO.getTeam_b());
-        match.setMatchDate(matchDTO.getMatchDate());
-        match.setMatchTime(matchDTO.getMatchTime());
-        match.setTeam_a(matchDTO.getTeam_a());
-        match.setTeam_b(matchDTO.getTeam_b());
-        match.setSport(matchDTO.getSport());
-        List<MatchOdds> matchOddsList = new ArrayList<>();
-        for (MatchOddsDTO matchOddDTO : matchDTO.getMatchOddsDTOs()) {
-            matchOddsList.add(transformMatchOddsDTOToMatchOdds(matchOddDTO));
-        }
-        match.setMatchOdds(matchOddsList);
-        return match;
-    }
-
-    MatchOdds transformMatchOddsDTOToMatchOdds(MatchOddsDTO matchOddsDTO) {
-        MatchOdds matchOdds = new MatchOdds();
-        matchOdds.setSpecifier(matchOddsDTO.getSpecifier());
-        matchOdds.setOdd(matchOddsDTO.getOdd());
-        return matchOdds;
+    public void deleteMatch(long id) {
+        matchRepository.deleteById(id);
     }
 
 }

@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,5 +88,23 @@ public class MatchController {
             @RequestBody MatchDTO matchDTO) {
         return ResponseEntity.ok(
                 matchService.updateMatch(id, matchDTO));
+    }
+
+    @Operation(summary = "Delete a single match")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "The operation was successful",
+                    content = {@Content}),
+            @ApiResponse(responseCode = "404", description = "The container was not found",
+                    content = {@Content})
+    })
+    @DeleteMapping(value = "/match/{id}")
+    public ResponseEntity<?> delete(@Parameter(description = "The id of the match to be deleted")
+                                    @PathVariable long id) {
+        try {
+            matchService.deleteMatch(id);
+            return ResponseEntity.noContent().build();
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
