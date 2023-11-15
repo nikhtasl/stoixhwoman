@@ -98,8 +98,8 @@ public class MatchController {
                     content = {@Content})
     })
     @DeleteMapping(value = "/match/{id}")
-    public ResponseEntity<?> delete(@Parameter(description = "The id of the match to be deleted")
-                                    @PathVariable long id) {
+    public ResponseEntity<?> deleteMatch(@Parameter(description = "The id of the match to be deleted")
+                                         @PathVariable long id) {
         try {
             matchService.deleteMatch(id);
             return ResponseEntity.noContent().build();
